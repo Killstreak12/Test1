@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call of Duty · Black Ops 7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Bebas Neue', 'Oswald', 'Impact', 'Arial Narrow', sans-serif;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #fff;
+        }
+
+        /* military / black ops background texture */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(255, 70, 0, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(200, 150, 0, 0.03) 0%, transparent 40%),
+                repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 2px, transparent 2px, transparent 8px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* HEADER – tactical navigation */
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 0 1rem 0;
+            border-bottom: 2px solid #ff7b00;
+            box-shadow: 0 4px 20px rgba(255, 123, 0, 0.2);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(3px);
+            margin-top: 0.5rem;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .logo {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #f5a65b, #ff5100);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 10px #ff5100, 0 0 20px #b33e00;
+            margin-right: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            align-items: center;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-weight: 400;
+            transition: 0.2s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #ff9f4b;
+            border-bottom-color: #ff7b00;
+            text-shadow: 0 0 5px #ff7b00;
+        }
+
+        /* special style for items with '+' */
+        .nav-links a[href*="games"]::after,
+        .nav-links a[href*="news"]::after,
+        .nav-links a[href*="esports"]::after {
+            content: "+";
+            margin-left: 2px;
+            font-size: 1.2rem;
+            color: #ff7b00;
+            font-weight: bold;
+        }
+
+        .right-actions {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-left: auto;
+        }
+
+        .login-link {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 1.3rem;
+            letter-spacing: 1.5px;
+            border: 1px solid #555;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+
+        .login-link:hover {
+            border-color: #ff7b00;
+            color: #ff7b00;
+            background: rgba(255, 123, 0, 0.1);
+        }
+
+        .btn-blackops {
+            background: linear-gradient(145deg, #ff7b00, #c05e00);
+            color: #000 !important;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 0.5rem 1.8rem;
+            border-radius: 40px;
+            text-decoration: none;
+            letter-spacing: 2px;
+            border: 1px solid #ffb072;
+            box-shadow: 0 0 15px #ff7b00;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-blackops:hover {
+            background: linear-gradient(145deg, #ff942b, #e06800);
+            box-shadow: 0 0 25px #ffaa33;
+            transform: scale(1.02);
+            color: #000;
+        }
+
+        /* Hero section — NEW THREATS ARISE */
+        .hero {
+            margin-top: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 40px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 123, 0, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 60px rgba(255, 94, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: -20%; left: -10%;
+            width: 120%; height: 140%;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 136, 0, 0.15), transparent 60%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 7rem;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px #ff7b00, 0 0 40px #b64500;
+            animation: flicker 3s infinite alternate;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-size: 4rem;
+            letter-spacing: 18px;
+            color: #ffb773;
+            text-shadow: 0 0 15px #ff7b00;
+            margin-top: 0.2rem;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; text-shadow: 0 0 20px #ff7b00, 0 0 40px #b64500; }
+            100% { opacity: 0.95; text-shadow: 0 0 30px #ffaa33, 0 0 70px #ff5100; }
+        }
+
+        .hero-sub {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-sub .btn-blackops {
+            font-size: 2rem;
+            padding: 1rem 3.5rem;
+            border-radius: 60px;
+            background: linear-gradient(145deg, #000, #222);
+            color: #ff9f4b !important;
+            border: 2px solid #ff7b00;
+            box-shadow: 0 0 30px #ff7b00;
+        }
+
+        .hero-sub .btn-blackops:hover {
+            background: linear-gradient(145deg, #111, #333);
+            color: #ffb773 !important;
+            border-color: #ffaa33;
+        }
+
+        .hero-sub .secondary-cta {
+            background: transparent;
+            border: 2px solid #ff7b00;
+            color: #ffb773;
+            font-size: 1.6rem;
+            padding: 1rem 2.8rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 3px;
+            transition: 0.2s;
+        }
+
+        .hero-sub .secondary-cta:hover {
+            background: rgba(255, 123, 0, 0.2);
+            border-color: #ffaa33;
+            color: #fff;
+        }
+
+        /* extra tagline (xbox gamepass) */
+        .gamepass-tag {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+            color: #aaa;
+            border-top: 1px dashed #444;
+            padding-top: 1.8rem;
+        }
+
+        .gamepass-tag strong {
+            color: #ff9f4b;
+            background: rgba(255, 123, 0, 0.1);
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 1.4rem;
+            border: 1px solid #ff7b00;
+        }
+
+        /* responsiveness */
+        @media (max-width: 1050px) {
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .right-actions {
+                justify-content: center;
+                margin-left: 0;
+            }
+            .hero h1 {
+                font-size: 5rem;
+                letter-spacing: 8px;
+            }
+            .hero h1 span {
+                font-size: 3rem;
+                letter-spacing: 8px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .wrapper { padding: 0 1rem; }
+            .nav-links { gap: 1rem; font-size: 1.1rem; }
+            .btn-blackops { font-size: 1rem; padding: 0.4rem 1rem; }
+            .hero h1 { font-size: 3.4rem; }
+            .hero h1 span { font-size: 2rem; }
+        }
+
+        /* dummy links – they don't go anywhere */
+        .nav-links a, .login-link, .btn-blackops, .secondary-cta {
+            cursor: pointer;
+        }
+
+        /* micro细节 */
+        .xbox-specific {
+            color: #ffb062;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header / navigation – matches image text exactly -->
+        <header class="navbar">
+            <div class="logo">CALLDUTY</div>
+            
+            <nav class="nav-links">
+                <a href="#">GAMES+</a>
+                <a href="#">NEWS+</a>
+                <a href="#">STORE</a>
+                <a href="#">ESPORTS+</a>
+                <a href="#">SUPPORT</a>
+                <a href="#" class="xbox-specific">XBOYGAMEPASS</a>
+            </nav>
+
+            <div class="right-actions">
+                <a href="#" class="login-link">LOGIN</a>
+                <a href="#" class="btn-blackops">GETBLACKOPS7</a>
+            </div>
+        </header>
+
+        <!-- Hero: NEWTHREATS ARISE (exactly as in the description) -->
+        <section class="hero">
+            <h1>
+                NEWTHREATS
+                <span>ARISE</span>
+            </h1>
+            <div class="hero-sub">
+                <a href="#" class="btn-blackops">PRE-ORDER NOW</a>
+                <a href="#" class="secondary-cta">WATCH TRAILER</a>
+            </div>
+
+            <!-- subtle line with XBOYGAMEPASS (already in nav, but can appear here as badge) -->
+            <div class="gamepass-tag">
+                <span>INCLUDED WITH</span>
+                <strong>XBOYGAMEPASS</strong>
+                <span>PLAY DAY ONE</span>
+            </div>
+        </section>
+
+        <!-- optional footnote: all items from image appear: 
+             CALLDUTY, GAMES+, NEWS+, STORE, ESPORTS+, SUPPORT, XBOYGAMEPASS, LOGIN, GETBLACKOPS7, NEWTHREATS ARISE
+             all present above -->
+    </div>
+
+    <!-- small spacer for comfort -->
+    <div style="height: 3rem;"></div>
+</body>
+</html>
